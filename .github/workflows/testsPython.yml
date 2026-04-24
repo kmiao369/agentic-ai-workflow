@@ -32,6 +32,7 @@ on:
       - test-notification      
     paths: # branches, but only if Python files are changed
       - "**.py" #
+      - "**.yml"
 
 env:
   python-version: "3.13"
