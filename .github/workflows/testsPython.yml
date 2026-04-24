@@ -62,6 +62,9 @@ jobs:
           mysql-charset: "${{ secrets.MYSQL_CHARSET }}"
           codecov-token: "${{ secrets.CODECOV_TOKEN }}"
 
+      - name: Force failure for notification test
+        run: exit 1
+
   # Job #2: Notifications (Mini-capstone assignment)
   # This job will run after the Python unit tests and
   # is scaffolded to facilitate sending notifications based
@@ -75,5 +78,8 @@ jobs:
           if [ "${{ needs.python-unit-tests.result }}" == "success" ]; then
             echo "success notifications go here"
           else
-            echo "failure notifications go here"
+            echo "Python unit tests failed for ${{ github.repository }}."
+            echo "Branch: ${{ github.ref_name }}"
+            echo "Commit: ${{ github.sha }}"
+            echo "Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           fi
